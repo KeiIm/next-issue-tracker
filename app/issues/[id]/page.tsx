@@ -1,8 +1,9 @@
 import prisma from '@/prisma/client';
-import { Box, Grid } from '@radix-ui/themes';
+import { Box, Flex, Grid } from '@radix-ui/themes';
 import { notFound } from 'next/navigation';
 import EditIssueButton from './EditIssueButton';
 import IssueDetails from './IssueDetails';
+import DeleteIssueButton from './edit/DeleteIssueButton';
 
 interface Props {
   params: { id: string };
@@ -18,15 +19,20 @@ const IssueDetailPage = async ({ params }: Props) => {
   if (!issue) notFound();
 
   return (
-    <Grid columns={{ initial: '1', md: '2' }} gap="5">
-      <Box className="max-w-xl">
+    <Grid columns={{ initial: '1', md: '5' }} gap="5">
+      <Box className="lg:col-span-4">
         <IssueDetails issue={issue} />
       </Box>
       <Box>
-        <EditIssueButton href={`/issues/${issue.id}/edit`} />
+        <Flex direction="column" gap="4">
+          <EditIssueButton href={`/issues/${issue.id}/edit`} />
+          <DeleteIssueButton href={`/issues/${issue.id}/edit`} />
+        </Flex>
       </Box>
     </Grid>
   );
 };
 
 export default IssueDetailPage;
+
+// Note: Laptop size = 'md' in Radix, 'lg' in Tailwind
