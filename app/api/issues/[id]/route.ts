@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/prisma/client";
 import { IssueSchema } from "@/app/validationSchemas";
+import delay from "delay";
 
 export async function PATCH(
     request: NextRequest,
@@ -32,6 +33,9 @@ export async function PATCH(
 export async function DELETE(
     request: NextRequest,
     { params }: { params: {id: string } }) {
+    
+    // Test Delete Spinner
+    // await delay(2000)
     
     const issue = await prisma.issue.findUnique({
         where: { id: parseInt(params.id) }
