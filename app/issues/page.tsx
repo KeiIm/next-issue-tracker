@@ -46,4 +46,8 @@ const IssuesPage = async () => {
   );
 };
 
+// In order to have /issues not be static (list won't update after deployment):
+export const dynamic = 'force-dynamic';
+// export const revalidate = 0 // accomplishes the same; revalidates every 0 seconds
+
 export default IssuesPage;
