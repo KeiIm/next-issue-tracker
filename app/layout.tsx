@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { Container, Theme } from '@radix-ui/themes';
 import NavBar from './NavBar';
+import AuthProvider from './auth/Provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -25,14 +26,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.variable}>
-        <Theme appearance="dark" accentColor="violet">
-          {/* appearance causes dev warning "extra attributes from the server: class,style" - should go away in production */}
-          <NavBar />
-          <main className="p-5">
-            <Container>{children}</Container>
-          </main>
-          {/* <ThemePanel /> */}
-        </Theme>
+        <AuthProvider>
+          <Theme appearance="dark" accentColor="violet">
+            {/* appearance causes dev warning "extra attributes from the server: class,style" - should go away in production */}
+            <NavBar />
+            <main className="p-5">
+              <Container>{children}</Container>
+            </main>
+            {/* <ThemePanel /> */}
+          </Theme>
+        </AuthProvider>
       </body>
     </html>
   );
