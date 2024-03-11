@@ -22,7 +22,6 @@ const AssigneeSelect = () => {
       <Select.Content>
         <Select.Group>
           <Select.Label>Suggestions</Select.Label>
-          <Select.Item value="1">Kei Imamura</Select.Item>
           {users.map((user) => (
             <Select.Item key={user.id} value={user.id}>
               {user.name}
@@ -35,5 +34,3 @@ const AssigneeSelect = () => {
 };
 
 export default AssigneeSelect;
-
-// Note: Kei Imamura shows up twice
