@@ -1,12 +1,12 @@
+import authOptions from '@/app/auth/authOptions';
 import prisma from '@/prisma/client';
 import { Box, Flex, Grid } from '@radix-ui/themes';
+import { getServerSession } from 'next-auth';
 import { notFound } from 'next/navigation';
+import AssigneeSelect from './AssigneeSelect';
 import EditIssueButton from './EditIssueButton';
 import IssueDetails from './IssueDetails';
 import DeleteIssueButton from './edit/DeleteIssueButton';
-import { getServerSession } from 'next-auth';
-import authOptions from '@/app/auth/authOptions';
-import AssigneeSelect from './AssigneeSelect';
 
 interface Props {
   params: { id: string };
@@ -40,7 +40,17 @@ const IssueDetailPage = async ({ params }: Props) => {
     </Grid>
   );
 };
+// Note: Laptop size = 'md' in Radix, 'lg' in Tailwind
 
 export default IssueDetailPage;
 
-// Note: Laptop size = 'md' in Radix, 'lg' in Tailwind
+export async function generateMetadata({ params }: Props) {
+  const issue = await prisma.issue.findUnique({
+    where: { id: parseInt(params.id) },
+  });
+
+  return {
+    title: issue?.title,
+    description: `Details of issue ${issue?.id}`,
+  };
+}
