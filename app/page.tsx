@@ -1,5 +1,12 @@
+import LatestIssue from './LatestIssue';
 import Link from './components/Link';
+import { Text } from '@radix-ui/themes';
 
 export default function Home() {
-  return <Link href={'/issues'}>View Issues</Link>;
+  return (
+    <>
+      {/* <Text>Latest Issues</Text> */}
+      <LatestIssue />
+    </>
+  );
 }
